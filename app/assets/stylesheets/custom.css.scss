@@ -1,0 +1,16 @@
+// @import "bootsrap-sprockets";
+@import "bootstrap";
+
+.navbar-brand {
+  float: left;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+.navbar-brand:hover {
+  color: #fff;
+  text-decoration: none
+}
