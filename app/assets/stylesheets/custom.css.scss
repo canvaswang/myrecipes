@@ -5,6 +5,13 @@
   text-align: center
 }
 
+.jumbotron {
+  margin-top: 10px;
+  background-image: asset-url("cover-image.jpg");
+  background-size: cover;
+  height: 300px;
+}
+
 .navbar-brand {
   float: left;
   font-size: 1.7em;
@@ -17,4 +24,12 @@
 .navbar-brand:hover {
   color: #fff;
   text-decoration: none
+}
+
+.jumbotron h1, h2 {
+  color: green;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: -1px;
+  font-weight: bold;
 }
