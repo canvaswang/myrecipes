@@ -16,11 +16,23 @@ RSpec.describe "Recipes", type: :request do
       )
     end
 
-    it "works! (now write some real specs)" do
+    it "should get recipes listing" do
       get recipes_path
       expect(response).to have_http_status(200)
       expect(response.body).to include(recipe1.name)
       expect(response.body).to include(recipe2.name)
+    end
+
+    it "should get recipes show page" do
+      get recipe_path(recipe1)
+      expect(response).to have_http_status(200)
+      expect(response.body).to include(recipe1.name.capitalize)
+      expect(response.body).to include(recipe1.description)
+      expect(response.body).to include(chef.chefname)
+      # expect(response).to redirect_to('www.google.com')
+
+      # needs gem 'rails-controller-testing'
+      # expect(response.body).to render_template('show')
     end
   end
 end
