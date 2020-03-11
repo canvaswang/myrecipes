@@ -10,4 +10,7 @@ class Chef < ApplicationRecord
       length: { maximum: 255 },
       email: true
   validates_acceptance_of :privacy_policy
+
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 5 }
 end

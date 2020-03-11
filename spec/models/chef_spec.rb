@@ -2,13 +2,27 @@ require 'rails_helper'
 
 RSpec.describe Chef, type: :model do
   context 'Test validations' do
-    let(:chef) {
-      valid_email = "cwang@example.com"
-      Chef.new(chefname: 'Chef Name', email: valid_email)
-    }
+    let(:chef) { build(:chef) }
 
-    it 'should be valid with both a name and an email' do
+    it 'should be valid from factory' do
       expect(chef).to be_valid
+    end
+
+    it 'should be invalid without password' do
+      chef.password = chef.password_confirmation = nil
+      expect(chef).not_to be_valid
+    end
+
+    it 'should be invalid with mismatched password and password_confirmation' do
+      chef.password = '12345'
+      chef.password_confirmation = '56789'
+      expect(chef).not_to be_valid
+    end
+
+    it 'should be invalid with too short password' do
+      too_short_pwd = '1234'
+      chef.password = chef.password_confirmation = too_short_pwd
+      expect(chef).not_to be_valid
     end
 
     it 'should be invalid without a name' do
