@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Recipes", type: :request do
   describe "GET /recipes" do
-    let(:chef) { Chef.create(chefname: 'wang', email: 'cwang@example.com') }
+    let(:chef) { create(:chef) }
     let!(:recipe1) do
       chef.recipes.create(
         name: 'vegetable saute',
@@ -30,9 +30,13 @@ RSpec.describe "Recipes", type: :request do
       expect(response.body).to include(recipe1.description)
       expect(response.body).to include(chef.chefname)
       # expect(response).to redirect_to('www.google.com')
-
       # needs gem 'rails-controller-testing'
       # expect(response.body).to render_template('show')
+    end
+
+    it "should get new recipe page" do
+      get new_recipe_path
+      expect(response).to have_http_status(200)
     end
   end
 end
