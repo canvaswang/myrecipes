@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
   context 'validations' do
-    let(:chef) { Chef.create!(chefname: 'Canvas Wang', email: 'cwang@example.com') }
-    let(:recipe) { chef.recipes.build(name: 'vegetable', description: 'great vegetable recipe') }
+    let(:chef) { create(:chef) }
+    let(:recipe) { build_stubbed(:recipe, chef: chef) }
 
     specify 'recipe should be valid' do
       expect(recipe).to be_valid
