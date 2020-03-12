@@ -1,5 +1,5 @@
 class ChefsController < ApplicationController
-  before_action :get_chef, only: [:show]
+  before_action :get_chef, only: [:show, :edit, :update]
 
   def new
     @chef = Chef.new
@@ -16,7 +16,19 @@ class ChefsController < ApplicationController
   end
 
   def show
+  end
 
+  def edit
+  end
+
+  def update
+    if @chef.update(chef_params)
+      flash[:success] = "You account was updated successfully"
+      redirect_to @chef
+    else
+      # redirect_to action: :edit, id: @chef.id
+      render :edit    # this will make the url look wrong. '/chefs/:id', not '/chefs/:id/edit'
+    end
   end
 
   private

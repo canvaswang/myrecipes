@@ -5,7 +5,8 @@ RSpec.describe "Chef sign up process", type: :system do
     driven_by(:rack_test)
   end
 
-  it 'signs up from root page' do
+  # How about sad path? What do we do with it?
+  specify 'signs up from root page' do
     visit '/signup'
     fill_in 'Choose Chefname', with: 'John Depp'
     fill_in 'Email', with: 'john.depp@gmail.com'
@@ -23,5 +24,21 @@ RSpec.describe "Chef sign up process", type: :system do
     expect(page).to have_current_path(chef_path(new_chef))
   end
 
-  # How about sad path? What do we do with it?
+  specify 'edit chef page' do
+    chef = create(:chef, chefname: 'Existing Chef', email: 'existingchef@example.com')
+    visit edit_chef_path(chef)
+
+    fill_in 'Choose Chefname', with: 'John Depp'
+    fill_in 'Email', with: 'john.depp@gmail.com'
+    fill_in 'Password', with: 'testpassword'
+    fill_in 'Confirm Password', with: 'testpassword'
+    expect {
+      click_on 'Update my account'
+    }.to_not change { Chef.count }
+    expect(page).to have_current_path(chef_path(chef))
+
+    chef.reload
+    expect(chef.chefname).to eq('John Depp')
+    expect(chef.email).to eq('john.depp@gmail.com')
+  end
 end
