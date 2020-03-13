@@ -41,4 +41,12 @@ RSpec.describe "Chef sign up process", type: :system do
     expect(chef.chefname).to eq('John Depp')
     expect(chef.email).to eq('john.depp@gmail.com')
   end
+
+  specify 'chef list' do
+    chef1 = create(:chef, chefname: 'First Chef', email: 'firstchef@example.com')
+    chef2 = create(:chef, chefname: 'Second Chef', email: 'secondchef@example.com')
+    visit chefs_path
+    expect(page).to have_link('First Chef', href: chef_path(chef1))
+    expect(page).to have_link('Second Chef', href: chef_path(chef2))
+  end
 end

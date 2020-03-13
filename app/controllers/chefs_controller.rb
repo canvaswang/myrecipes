@@ -1,6 +1,10 @@
 class ChefsController < ApplicationController
   before_action :get_chef, only: [:show, :edit, :update]
 
+  def index
+    @chefs = Chef.all
+  end
+
   def new
     @chef = Chef.new
   end
